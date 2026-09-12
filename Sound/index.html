@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meme Sound Board</title>
+    <link rel="stylesheet" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>soundboard</h1>
+
+    <a href="../index.html" class="all-projects" title="Back to all projects">ALL PROJECTS</a>
+
+    <div class="tabs">
+        <button class="tab active" data-tab="main">Main</button>
+        <button class="tab" data-tab="create">Create</button>
+        <button class="tab" data-tab="edit">Edit</button>
+        <button class="tab" data-tab="combos">Combos</button>
+        <button class="tab" data-tab="download">Download</button>
+    </div>
+
+    <div id="tab-main" class="tab-content active">
+        <div class="favorites-section" id="favorites-section">
+            <h2>Favorites</h2>
+            <div id="favorites-grid" class="grid"></div>
+            <p id="no-favs" class="no-favs">Tap the heart on a sound to favorite it</p>
+        </div>
+
+        <div class="sounds-section">
+            <div class="sounds-header">
+                <h2>Sounds</h2>
+                <p>click a card to play</p>
+                <button id="stop-all-btn" class="stop-all-btn">Stop All</button>
+            </div>
+            <div id="main-grid" class="grid"></div>
+        </div>
+
+        <div class="songs-section">
+            <div class="sounds-header">
+                <h2>Songs</h2>
+            </div>
+            <div id="songs-grid" class="grid"></div>
+        </div>
+    </div>
+
+    <div id="tab-create" class="tab-content">
+        <div class="create-top-row">
+            <h2>Create a Sound Combo</h2>
+            <button id="clear-timeline-btn" class="clear-btn">Clear</button>
+        </div>
+
+        <div class="create-controls">
+            <input type="text" id="combo-name" placeholder="Combo name..." maxlength="20">
+            <input type="text" id="combo-emoji" placeholder="Emoji" maxlength="4" class="emoji-input">
+        </div>
+
+        <div class="create-duration">
+            <label>Total length (seconds):</label>
+            <input type="number" id="combo-duration" placeholder="e.g. 10" min="1" max="60" step="0.1" value="10">
+        </div>
+
+        <div class="create-grid-label">Click a sound to add it</div>
+        <div id="create-sound-grid" class="grid"></div>
+
+        <div class="timeline-creator" id="timeline-creator">
+            <div class="timeline-ruler" id="timeline-ruler"></div>
+            <div class="timeline-track" id="timeline-track"></div>
+        </div>
+
+        <div id="timeline-items" class="timeline-items"></div>
+
+        <button id="test-combo-btn" class="save-combo-btn">Play</button>
+
+        <button id="save-combo-btn" class="save-combo-btn">Save Combo</button>
+    </div>
+
+    <div id="tab-edit" class="tab-content">
+        <h2>Edit Sound Trim</h2>
+        <div id="edit-grid" class="grid"></div>
+
+        <div id="editor" class="editor hidden">
+            <p id="edit-sound-info" class="edit-sound-info"></p>
+
+            <div class="trim-inputs">
+                <label>Start (s):
+                    <input type="number" id="trim-start-input" step="0.1" min="0" value="0">
+                </label>
+                <label>End (s):
+                    <input type="number" id="trim-end-input" step="0.1" min="0" value="0">
+                </label>
+            </div>
+
+            <div class="timeline-wrapper">
+                <div class="timeline" id="edit-timeline">
+                    <div class="timeline-bar" id="edit-timeline-bar"></div>
+                    <div class="timeline-fill" id="edit-timeline-fill"></div>
+                    <div class="timeline-dot green" id="dot-start"></div>
+                    <div class="timeline-dot red" id="dot-end"></div>
+                </div>
+            </div>
+
+            <div class="time-labels">
+                <span id="start-time">0.0s</span>
+                <span id="duration-time">/ 0.0s</span>
+                <span id="end-time">0.0s</span>
+            </div>
+
+            <div class="editor-controls">
+                <button id="preview-btn" class="preview-btn">Play</button>
+                <button id="stop-preview-btn" class="stop-preview-btn hidden">Stop</button>
+                <button id="save-trim-btn" class="save-trim-btn">Save Trim</button>
+                <button id="reset-trim-btn" class="reset-trim-btn">Reset</button>
+            </div>
+            <p id="save-flash" class="save-flash hidden">Saved!</p>
+        </div>
+    </div>
+
+    <div id="tab-combos" class="tab-content">
+        <h2>Saved Combos</h2>
+        <div id="combos-grid" class="grid"></div>
+        <p id="no-combos" class="no-favs">No combos saved yet. Create one in the Create tab!</p>
+    </div>
+
+    <div id="tab-download" class="tab-content">
+        <h2>Download Sounds</h2>
+        <div id="download-grid" class="grid"></div>
+    </div>
+
+    <div id="recently-edited" class="recently-edited">
+        <h2>Recently Edited</h2>
+        <div id="recently-list"></div>
+        <p id="no-recent" class="no-favs">No edits yet</p>
+    </div>
+
+    <div id="now-playing-bar" class="hidden">
+        <div class="np-header">Now Playing</div>
+        <div id="np-list"></div>
+    </div>
+
+    <script src="sounds-data.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
