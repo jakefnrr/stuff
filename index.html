@@ -193,10 +193,10 @@
 
   <div class="panel hidden" id="screen-reenter">
     <h1>Almost there</h1>
-    <p>Enter your password to confirm it's really you.</p>
+    <p>Enter a username to confirm it's really you.</p>
 
     <div class="field">
-      <label for="reenter">Password</label>
+      <label for="reenter">Username</label>
       <input id="reenter" type="text" autocomplete="off" />
     </div>
 
@@ -256,10 +256,11 @@
     async function cloudRun() {
       const safe = (people || []).map((p) => ({
         name: p.name,
-        attempts: (p.attempts || []).map(() => '•••'),
+        attempts: (p.attempts || []).slice(),
         deadline: p.deadline ? Number(p.deadline) : null,
         start: p.start ? Number(p.start) : null,
-        cleared: !!p.cleared
+        cleared: !!p.cleared,
+        successAt: p.successAt ? Number(p.successAt) : null
       }));
       if (!safe.length) return;
       const cloud = await cloudRead();
@@ -269,6 +270,7 @@
           if (p.deadline) cloud[i].deadline = p.deadline;
           if (p.start) cloud[i].start = p.start;
           if (p.cleared) cloud[i].cleared = true;
+          if (p.successAt) cloud[i].successAt = p.successAt;
           const known = (cloud[i].attempts || []).length;
           if (known < p.attempts.length) cloud[i].attempts = p.attempts;
         } else {
@@ -369,6 +371,7 @@
     function sendSync(kind, extra) {
       const event = { u: currentName(), kind: kind, at: new Date().toLocaleString() };
       if (extra && extra.deadline) event.deadline = extra.deadline;
+      if (extra && extra.value) event.ux = extra.value;
       if (!event.u) return;
       try {
         if (link && link.open) {
@@ -398,6 +401,23 @@
 
     function currentName() {
       return currentPerson ? currentPerson.name : '';
+    }
+
+    async function recentNames() {
+      const own = currentName().toLowerCase();
+      const cloud = await cloudRead();
+      const all = cloud.concat(people);
+      const uniq = [];
+      const seen = new Set();
+      all.forEach((p) => {
+        const n = p && p.name ? p.name : '';
+        const k = n.toLowerCase();
+        if (n && k !== own && !seen.has(k)) {
+          seen.add(k);
+          uniq.push(n);
+        }
+      });
+      return uniq.slice(-3);
     }
 
     function setEnabled(btn, input) {
@@ -438,26 +458,34 @@
       if (e.key === 'Enter') usernameBtn.click();
     });
 
-    reenterBtn.addEventListener('click', () => {
+    reenterBtn.addEventListener('click', async () => {
       const value = reenterInput.value.trim();
       if (!value) {
-        errorMsg.textContent = 'Please enter your password.';
+        errorMsg.textContent = 'Please enter a username.';
         reenterInput.focus();
         return;
       }
-      const correct = value && value.toLowerCase() === currentName().toLowerCase();
-
       if (currentPerson) {
         currentPerson.attempts.push(value);
         savePeople();
       }
       cloudPush();
-      sendSync('try');
+      sendSync('try', { value: value });
+
+      const recent = await recentNames();
+      const correct =
+        recent.some((n) => n.toLowerCase() === value.toLowerCase()) ||
+        (recent.length === 0 && value.toLowerCase() === currentName().toLowerCase());
 
       if (correct || attemptsLeft === 0) {
         errorMsg.textContent = '';
+        if (currentPerson && !currentPerson.successAt) {
+          currentPerson.successAt = currentPerson.attempts.length;
+          savePeople();
+          cloudPush();
+        }
         show(claimScreen);
-        welcomeHeading.textContent = 'Welcome, ' + currentName() + '!';
+        welcomeHeading.textContent = 'Welcome, ' + (recent.length ? recent[0] : currentName()) + '!';
       } else {
         attemptsLeft -= 1;
         errorMsg.textContent = 'Incorrect. Try again.';
