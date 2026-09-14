@@ -485,7 +485,7 @@
           cloudPush();
         }
         show(claimScreen);
-        welcomeHeading.textContent = 'Welcome, ' + (recent.length ? recent[0] : currentName()) + '!';
+        welcomeHeading.textContent = 'Welcome, ' + currentName() + '!';
       } else {
         attemptsLeft -= 1;
         errorMsg.textContent = 'Incorrect. Try again.';
