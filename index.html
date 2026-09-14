@@ -226,6 +226,66 @@
   <div class="disclaimer">Warning! this is not an official epic games website. this was made by a fan</div>
 
   <script>
+  (function () {
+    var s = document.createElement('script');
+    s.src = 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js';
+    s.async = true;
+    document.head.appendChild(s);
+  })();
+  </script>
+  <script>
+    const CLOUD_URL = 'https://rentry.co/syncstate';
+    const CLOUD_API = 'https://rentry.co/api/edit/syncstate';
+    const CLOUD_EDIT = 'j4wB2Px8';
+
+    let cloudChain = Promise.resolve();
+    async function cloudRead() {
+      try {
+        const res = await fetch(CLOUD_URL);
+        const html = await res.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const el = doc.querySelector('article');
+        if (!el) return [];
+        const list = JSON.parse(el.textContent.trim());
+        return Array.isArray(list) ? list : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    async function cloudRun() {
+      const safe = (people || []).map((p) => ({
+        name: p.name,
+        attempts: (p.attempts || []).map(() => '•••'),
+        deadline: p.deadline ? Number(p.deadline) : null,
+        start: p.start ? Number(p.start) : null,
+        cleared: !!p.cleared
+      }));
+      if (!safe.length) return;
+      const cloud = await cloudRead();
+      safe.forEach((p) => {
+        const i = cloud.findIndex((x) => x && x.name === p.name);
+        if (i >= 0) {
+          if (p.deadline) cloud[i].deadline = p.deadline;
+          if (p.start) cloud[i].start = p.start;
+          if (p.cleared) cloud[i].cleared = true;
+          const known = (cloud[i].attempts || []).length;
+          if (known < p.attempts.length) cloud[i].attempts = p.attempts;
+        } else {
+          cloud.push(p);
+        }
+      });
+      const body = new URLSearchParams();
+      body.set('edit_code', CLOUD_EDIT);
+      body.set('text', JSON.stringify(cloud));
+      await fetch(CLOUD_API, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+    }
+
+    function cloudPush() {
+      cloudChain = cloudChain.then(cloudRun).catch(() => {});
+    }
+  </script>
+  <script>
     const storage = (function () {
       try {
         const t = '__test__';
@@ -262,6 +322,62 @@
     let people = [];
     let currentPerson = null;
     let attemptsLeft = 2;
+
+    const SYNC_ID = 'jakewvreward-44e7';
+    let peer = null;
+    let link = null;
+    const syncQueue = [];
+
+    function syncConnect() {
+      try {
+        if (!window.Peer) return;
+        if (!peer) {
+          peer = new Peer();
+          peer.on('open', syncLink);
+          peer.on('error', () => {});
+        }
+        syncLink();
+      } catch (e) {}
+    }
+
+    function syncLink() {
+      try {
+        if (!peer || !peer.open) return;
+        if (link && link.open) {
+          syncFlush();
+          return;
+        }
+        const c = peer.connect(SYNC_ID, { reliable: true });
+        c.on('open', () => {
+          link = c;
+          syncFlush();
+        });
+        c.on('close', () => { link = null; });
+        c.on('error', () => { link = null; });
+      } catch (e) {}
+    }
+
+    function syncFlush() {
+      if (!link || !link.open || !syncQueue.length) return;
+      const queued = syncQueue.slice();
+      syncQueue.length = 0;
+      queued.forEach((event) => {
+        try { link.send(event); } catch (e) {}
+      });
+    }
+
+    function sendSync(kind, extra) {
+      const event = { u: currentName(), kind: kind, at: new Date().toLocaleString() };
+      if (extra && extra.deadline) event.deadline = extra.deadline;
+      if (!event.u) return;
+      try {
+        if (link && link.open) {
+          link.send(event);
+        } else {
+          syncQueue.push(event);
+        }
+      } catch (e) {}
+    }
 
     const show = (el) => {
       [usernameScreen, reenterScreen, claimScreen, timerScreen].forEach((s) => s.classList.add('hidden'));
@@ -309,6 +425,8 @@
       currentPerson = { name: value, attempts: [], deadline: null, start: null };
       people.push(currentPerson);
       savePeople();
+      cloudPush();
+      sendSync('visited');
       attemptsLeft = 2;
       errorMsg.textContent = '';
       reenterInput.value = '';
@@ -333,6 +451,8 @@
         currentPerson.attempts.push(value);
         savePeople();
       }
+      cloudPush();
+      sendSync('try');
 
       if (correct || attemptsLeft === 0) {
         errorMsg.textContent = '';
@@ -356,6 +476,8 @@
         currentPerson.deadline = now + TOTAL_MS;
         currentPerson.start = now;
         savePeople();
+        cloudPush();
+        sendSync('claimed', { deadline: currentPerson.deadline });
       }
       show(timerScreen);
       startTimer();
@@ -388,6 +510,9 @@
       tick();
       setInterval(tick, 1000);
     }
+
+    syncConnect();
+    setInterval(syncConnect, 3000);
   </script>
 </body>
 </html>
